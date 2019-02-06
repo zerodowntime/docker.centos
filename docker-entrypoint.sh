@@ -6,6 +6,4 @@
 
 confd -onetime || exit 2
 
-cat /tmp/myconfig.conf
-
 exec "$@"
