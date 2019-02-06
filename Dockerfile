@@ -15,7 +15,7 @@ RUN go get github.com/kelseyhightower/confd && \
 FROM centos:7
 
 RUN mkdir -p /etc/confd/{conf.d,templates}
-COPY --from=confd-builder /go/src/github.com/kelseyhightower/confd/bin/confd /usr/local/bin
+COPY --from=confd-builder /go/src/github.com/kelseyhightower/confd/bin/confd /usr/local/bin/confd
 COPY confd/confd.toml /etc/confd/confd.toml
 COPY confd/templates  /etc/confd/templates
 COPY confd/conf.d     /etc/confd/conf.d
