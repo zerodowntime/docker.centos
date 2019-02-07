@@ -12,7 +12,7 @@ RUN go get github.com/kelseyhightower/confd && \
     make
 
 
-FROM centos:7
+FROM centos:latest
 
 RUN mkdir -p /etc/confd/{conf.d,templates}
 COPY --from=confd-builder /go/src/github.com/kelseyhightower/confd/bin/confd /usr/local/bin/confd
