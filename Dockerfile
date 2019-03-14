@@ -5,6 +5,8 @@
 ARG CENTOS_VERSION=latest
 ARG CONFD_VERSION=v0.16.0
 
+##############################################################################
+## confd builder
 
 FROM golang:1 as confd-builder
 
@@ -15,6 +17,8 @@ RUN go get github.com/kelseyhightower/confd && \
     git checkout $CONFD_VERSION && \
     make
 
+##############################################################################
+## su-exec builder
 
 FROM gcc:8 as su-exec-builder
 
@@ -22,6 +26,8 @@ RUN git clone https://github.com/ncopa/su-exec.git && \
     cd su-exec && \
     make
 
+##############################################################################
+## main image
 
 FROM centos:$CENTOS_VERSION
 
@@ -31,8 +37,3 @@ COPY confd /etc/confd
 
 # su-exec
 COPY --from=su-exec-builder /su-exec/su-exec /usr/local/bin/su-exec
-
-COPY docker-entrypoint.sh /
-
-ENTRYPOINT ["/docker-entrypoint.sh"]
-CMD ["/bin/sh"]
